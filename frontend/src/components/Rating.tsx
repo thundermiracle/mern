@@ -44,8 +44,8 @@ const makeStars = (value: number, color: string) => {
 
 const Rating = ({ value, text, iconColor = "gold" }: RatingProps) => {
   return (
-    <div className="py-2">
-      {makeStars(value, iconColor)}
+    <div className="py-2 d-flex">
+      <span>{makeStars(value, iconColor)}</span>
       <span>{text}</span>
     </div>
   );
