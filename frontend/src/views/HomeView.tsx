@@ -3,15 +3,20 @@ import { Col, Row } from "react-bootstrap";
 
 import Product from "../components/Product";
 import productService from "../services/productService";
+import { ProductData } from "../types";
 
 const HomeView = () => {
-  const allData = productService.getAll();
+  const [products, setProducts] = React.useState<ProductData[]>([]);
+
+  React.useEffect(() => {
+    productService.getAll().then(setProducts);
+  }, []);
 
   return (
     <>
       <h1>Latest Products</h1>
       <Row>
-        {allData.map((product) => (
+        {products.map((product) => (
           <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
             <Product product={product} />
           </Col>

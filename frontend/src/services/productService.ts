@@ -1,18 +1,20 @@
-import { ProductData } from '../types'
-import products from './data/products'
-
+import { ProductData } from "../types";
 interface IProductService {
-  getAll(): ProductData[]; 
-  get(id: string): ProductData | undefined;
+  get(id: string): Promise<ProductData | undefined>;
+  getAll(): Promise<ProductData[]>;
 }
 
 class ProductService implements IProductService {
-  get(id: string): ProductData | undefined {
-    return products.find(({ _id }: ProductData) => _id === id);
+  async get(id: string): Promise<ProductData | undefined> {
+    const res = await fetch(`/api/products/${id}`);
+
+    return res.json();
   }
 
-  getAll(): ProductData[] {
-    return products;
+  async getAll(): Promise<ProductData[]> {
+    const res = await fetch("/api/products");
+
+    return res.json();
   }
 }
 
