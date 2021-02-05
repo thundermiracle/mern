@@ -4,17 +4,25 @@ interface IProductService {
   getAll(): Promise<ProductData[]>;
 }
 
+interface ResponseJson {
+  status: boolean;
+  data: any;
+}
 class ProductService implements IProductService {
   async get(id: string): Promise<ProductData | undefined> {
     const res = await fetch(`/api/products/${id}`);
 
-    return res.json();
+    const { status, data } = (await res.json()) as ResponseJson;
+
+    return data;
   }
 
   async getAll(): Promise<ProductData[]> {
     const res = await fetch("/api/products");
 
-    return res.json();
+    const { status, data } = (await res.json()) as ResponseJson;
+
+    return data;
   }
 }
 

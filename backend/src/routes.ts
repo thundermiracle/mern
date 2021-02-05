@@ -3,7 +3,6 @@ import { getProducts, getProduct } from "./controllers/products.ts";
 
 const router = new Router();
 
-router.use();
 router.get("/api/products", getProducts).get("/api/products/:id", getProduct);
 
 export default router;
