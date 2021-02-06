@@ -16,7 +16,7 @@ export function getProduct(request: Request<{ id: string }>, response: Response)
       data: product,
     });
   } else {
-    // response.status = 404;
+    response.status(404);
     response.json({
       success: false,
       msg: "Not Found",

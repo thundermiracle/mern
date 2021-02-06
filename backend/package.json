@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "data bot for traveljp.info",
   "author": "ThunderMiracle",
+  "license": "MIT",
   "main": "dist/server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn ./src/server",
