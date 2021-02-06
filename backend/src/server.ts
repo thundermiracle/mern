@@ -1,11 +1,9 @@
-import { Application } from "https://deno.land/x/oak/mod.ts";
-import router from "./routes.ts";
+import express from "express";
+import router from "./routes";
 
 const port = 5000;
 
-const app = new Application();
-app.use(router.routes());
-app.use(router.allowedMethods());
+const app = express();
+app.use("/api", router);
 
-console.log(`Server running on ${port}`);
-await app.listen({ port });
+app.listen(port, () => console.log(`Server running on ${port}`));

@@ -1,27 +1,25 @@
-import { Status } from "https://deno.land/x/oak/mod.ts";
-import { RouterContext } from "https://deno.land/x/oak/mod.ts";
+import { Request, Response } from "express";
+import DBProducts from "../DB/DBproducts";
 
-import DBProducts from "../../DB/products.ts";
-
-export function getProducts({ response }: RouterContext) {
-  response.body = {
+export function getProducts(_: Request, response: Response) {
+  response.json({
     success: true,
     data: DBProducts,
-  };
+  });
 }
 
-export function getProduct({ response, params }: RouterContext) {
-  const product = DBProducts.find((product) => product._id === params.id);
+export function getProduct(request: Request<{ id: string }>, response: Response) {
+  const product = DBProducts.find((product) => product._id === request.params.id);
   if (product) {
-    response.body = {
+    response.json({
       success: true,
       data: product,
-    };
+    });
   } else {
-    response.status = Status.NotFound;
-    response.body = {
+    // response.status = 404;
+    response.json({
       success: false,
       msg: "Not Found",
-    };
+    });
   }
 }

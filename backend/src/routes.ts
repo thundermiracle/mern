@@ -1,8 +1,8 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
-import { getProducts, getProduct } from "./controllers/products.ts";
+import { Router } from "express";
+import { getProducts, getProduct } from "./controllers/products";
 
-const router = new Router();
+const router = Router();
 
-router.get("/api/products", getProducts).get("/api/products/:id", getProduct);
+router.get("/products", getProducts).get("/products/:id", getProduct);
 
 export default router;
