@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
-import DBProducts from "../DB/DBproducts";
+import DataProducts from "../lib/seeder/DataProducts";
 
 export function getProducts(_: Request, response: Response) {
   response.json({
     success: true,
-    data: DBProducts,
+    data: DataProducts,
   });
 }
 
 export function getProduct(request: Request<{ id: string }>, response: Response) {
-  const product = DBProducts.find((product) => product._id === request.params.id);
+  const product = DataProducts.find((product) => product._id === request.params.id);
   if (product) {
     response.json({
       success: true,

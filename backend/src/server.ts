@@ -1,13 +1,14 @@
+import init from "./lib/init";
+init();
+
 import express from "express";
-import dotenv from "dotenv";
-import router from "./routes";
+import router from "./controllers/routes";
+import env from "./config/environment";
 
-dotenv.config();
-
-const port = process.env.PORT || 5000;
-const env = process.env.NODE_ENV;
+const port = env.PORT;
+const nodeEnv = env.NODE_ENV;
 
 const app = express();
 app.use("/api", router);
 
-app.listen(port, () => console.log(`[${env}] Server running on ${port}`));
+app.listen(port, () => console.log(`[${nodeEnv}] Server running on ${port}`.green));
