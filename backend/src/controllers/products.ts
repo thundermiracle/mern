@@ -1,15 +1,32 @@
 import { Request, Response } from "express";
-import DataProducts from "../lib/seeder/DataProducts";
+import asyncHandler from "express-async-handler";
+import { isValidObjectId } from "mongoose";
+import ProductModel from "../models/ProductModel";
 
-export function getProducts(_: Request, response: Response) {
+/**
+ * @description Fetch all products
+ * @route GET /api/products
+ */
+export const getProducts = asyncHandler(async (_: Request, response: Response) => {
+  const products = await ProductModel.find({});
+
   response.json({
     success: true,
-    data: DataProducts,
+    data: products,
   });
-}
+});
 
-export function getProduct(request: Request<{ id: string }>, response: Response) {
-  const product = DataProducts.find((product) => product._id === request.params.id);
+/**
+ * @description Fetch Single product by id
+ * @route GET /api/products/:id
+ */
+export const getProduct = asyncHandler(async (request: Request, response: Response) => {
+  // Handle all errors in ErrorHandler
+  // if (!isValidObjectId(request.params.id)) {
+  //   response.status(404).json("Invalid ID");
+  // }
+
+  const product = await ProductModel.findById(request.params.id);
   if (product) {
     response.json({
       success: true,
@@ -17,9 +34,6 @@ export function getProduct(request: Request<{ id: string }>, response: Response)
     });
   } else {
     response.status(404);
-    response.json({
-      success: false,
-      msg: "Not Found",
-    });
+    throw new Error("Not Found");
   }
-}
+});
