@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@awaitjs/express@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@awaitjs/express/-/express-0.7.1.tgz#3d6a83ea566c738681166f737d3d273793946482"
+  integrity sha512-eia48I6cCAIZzFMDNneXJ6nbNwty3AzCQG29zeFOJZJw3sFLaoeWp6l76uTY224TOruCl3fX8kF+LZs4MUWQ5w==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.13.tgz#dcfc826beef65e75c50e21d3837d7d95798dd658"
@@ -2128,11 +2133,6 @@ expect@^26.6.2:
     jest-matcher-utils "^26.6.2"
     jest-message-util "^26.6.2"
     jest-regex-util "^26.0.0"
-
-express-async-handler@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/express-async-handler/-/express-async-handler-1.1.4.tgz#225a84908df63b35ae9df94b6f0f1af061266426"
-  integrity sha512-HdmbVF4V4w1q/iz++RV7bUxIeepTukWewiJGkoCKQMtvPF11MLTa7It9PRc/reysXXZSEyD4Pthchju+IUbMiQ==
 
 express@^4.17.1:
   version "4.17.1"

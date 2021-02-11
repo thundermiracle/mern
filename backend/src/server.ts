@@ -10,8 +10,8 @@ const port = env.PORT;
 const nodeEnv = env.NODE_ENV;
 
 const app = express();
-app.use("/api/products", productsRouter);
 
+app.use("/api/products", productsRouter);
 app.use(ErrorHandler);
 
 app.listen(port, () => console.log(`[${nodeEnv}] Server running on ${port}`.green));

@@ -1,8 +1,9 @@
-import { Router } from "express";
+import { Router } from "@awaitjs/express";
 import { getProducts, getProduct } from "../controllers/products";
 
 const router = Router();
 
-router.get("/", getProducts).get("/:id", getProduct);
+router.getAsync("/", getProducts);
+router.getAsync("/:id", getProduct);
 
 export default router;
