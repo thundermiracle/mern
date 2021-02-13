@@ -12,8 +12,7 @@ import {
 } from "./types";
 
 const initProductState: ProductState = {
-  loading: true,
-  products: [],
+  loading: false,
 };
 
 export const productListReducer = (state = initProductState, action: ProductActionTypes) => {
@@ -33,7 +32,7 @@ export const productListReducer = (state = initProductState, action: ProductActi
 };
 
 const initSingleProductState: SingleProductState = {
-  loading: true,
+  loading: false,
 };
 
 export const singleProductReducer = (

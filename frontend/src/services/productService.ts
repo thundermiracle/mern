@@ -1,28 +1,22 @@
+import fetchWrapper from "../lib/fetchWrapper";
+import { Product } from "../store/product/types";
 import { ProductData } from "../types";
 interface IProductService {
   get(id: string): Promise<ProductData | undefined>;
   getAll(): Promise<ProductData[]>;
 }
 
-interface ResponseJson {
-  status: boolean;
-  data: any;
-}
 class ProductService implements IProductService {
   async get(id: string): Promise<ProductData | undefined> {
-    const res = await fetch(`/api/products/${id}`);
-
-    const { status, data } = (await res.json()) as ResponseJson;
+    const data = await fetchWrapper.get<ProductData>(`/api/products/${id}`);
 
     return data;
   }
 
   async getAll(): Promise<ProductData[]> {
-    const res = await fetch("/api/products");
+    const data = await fetchWrapper.get<ProductData[]>("/api/products");
 
-    const { status, data } = (await res.json()) as ResponseJson;
-
-    return data;
+    return data || [];
   }
 }
 

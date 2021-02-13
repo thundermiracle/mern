@@ -1,10 +1,13 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Col, Row, Image, ListGroup, Card, Button } from "react-bootstrap";
+
 import Rating from "../components/Rating";
-import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader";
 import { singleProduct } from "../store/product/actions";
 import { RootState } from "../store";
+import Message from "../components/Message";
 
 interface ProductViewProps extends RouteComponentProps<{ id: string }> {}
 
@@ -16,18 +19,14 @@ const ProductView = ({ match }: ProductViewProps) => {
     dispatch(singleProduct(match.params.id));
   }, [match.params.id, dispatch]);
 
-  if (product == null) {
-    return null;
-  }
-
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {error && <p>error.message</p>}
       <Link className="btn btn-dark my-3" to="/">
         Go Back
       </Link>
-      {!loading && (
+      {loading && <Loader />}
+      {error && <Message variant="danger">{error}</Message>}
+      {!loading && product && (
         <Row>
           <Col md={6}>
             <Image src={product.image} alt={product.name} fluid />
