@@ -24,6 +24,7 @@ interface CartAddItemAction {
 }
 interface CartRemoveItemAction {
   type: typeof CART_REMOVE_ITEM;
+  payload: CartItem;
 }
 export type CartActionTypes = CartAddItemAction | CartRemoveItemAction;
 /***************** end of Action part *****************/

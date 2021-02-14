@@ -8,7 +8,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { RootState } from "../store";
 import Message from "../components/Message";
-import { addToCart } from "../store/cart/actions";
+import { addToCart, removeFromCart } from "../store/cart/actions";
 
 interface CartViewProps extends RouteComponentProps<{ id: string }> {}
 
@@ -28,7 +28,13 @@ const CartView = ({ history }: CartViewProps) => {
     [dispatch],
   );
 
-  const handleRemoveFromCart = React.useCallback((item) => () => {}, []);
+  const handleRemoveFromCart = React.useCallback(
+    (item) => () => {
+      dispatch(removeFromCart(item));
+    },
+    [dispatch],
+  );
+
   const handleCheckout = React.useCallback(() => {}, []);
 
   return (
