@@ -12,7 +12,11 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const initialState = {};
+const initialState = {
+  cart: {
+    cartItems: JSON.parse(localStorage.getItem("cartItems") || "[]"),
+  },
+};
 
 const middlewares = [thunk];
 
@@ -21,5 +25,10 @@ const store = createStore(
   initialState,
   composeWithDevTools(applyMiddleware(...middlewares)),
 );
+
+// persist cartItems to localStorage
+store.subscribe(() => {
+  localStorage.setItem("cartItems", JSON.stringify(store.getState().cart.cartItems));
+});
 
 export default store;
