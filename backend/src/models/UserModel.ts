@@ -1,13 +1,15 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 export interface IUserModel extends mongoose.Document {
   name: string;
   email: string;
   password: string;
   isAdmin?: boolean;
+  matchPassword: (enteredPassword: string) => boolean;
 }
 
-const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema<IUserModel>(
   {
     name: {
       type: String,
@@ -32,6 +34,10 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+userSchema.methods.matchPassword = async function (enteredPassword: string) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const UserModel = mongoose.model<IUserModel>("User", userSchema);
 

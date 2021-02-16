@@ -19,11 +19,6 @@ export const getProducts = async (_: Request, response: Response) => {
  * @route GET /api/products/:id
  */
 export const getProduct = async (request: Request<{ id: string }>, response: Response) => {
-  // Handle all errors in ErrorHandler
-  // if (!isValidObjectId(request.params.id)) {
-  //   response.status(404).json("Invalid ID");
-  // }
-
   const product = await ProductModel.findById(request.params.id);
   if (product) {
     response.json({
