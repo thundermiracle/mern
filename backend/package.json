@@ -7,7 +7,7 @@
   "main": "dist/server.js",
   "scripts": {
     "seeder": "ts-node ./src/lib/seeder",
-    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn ./src/server",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --files ./src/server",
     "eslint:src": "eslint src/**/*.{ts,tsx}",
     "eslint:test": "eslint __test__/**/*.{ts,tsx}",
     "eslint": "yarn eslint:src && yarn eslint:test",
@@ -20,11 +20,13 @@
     "build": "yarn build:js"
   },
   "dependencies": {
-    "@awaitjs/express": "^0.7.1",
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "8.2.0",
     "express": "^4.17.1",
+    "express-promise-router": "^4.0.1",
+    "jsonwebtoken": "^8.5.1",
     "log4js": "6.3.0",
     "mongoose": "^5.11.15",
     "ramda": "0.27.1"

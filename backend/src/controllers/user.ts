@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import UserModel, { IUserModel } from "../models/UserModel";
+import { generate } from "../lib/tokenUtils";
+import UserModel from "../models/UserModel";
 
 interface ILoginUser {
   email?: string;
@@ -16,6 +17,8 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
   if (email && password) {
     const user = await UserModel.findOne({ email });
     if (user && user.matchPassword(password)) {
+      const token = generate({ id: user.id });
+
       response.json({
         success: true,
         data: {
@@ -23,7 +26,7 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
-          token: null,
+          token,
         },
       });
       return;

@@ -1,8 +1,8 @@
 import Router from "express-promise-router";
-import { authUser } from "../controllers/user";
+import AuthHandler from "../handlers/AuthHandler";
 
 const router = Router();
 
-router.post("/login", authUser);
+router.all("*", AuthHandler);
 
 export default router;
