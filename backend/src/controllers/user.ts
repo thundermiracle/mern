@@ -36,3 +36,22 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
   response.status(401);
   throw new Error("Not Authorized");
 };
+
+/**
+ * @description Get User Profile
+ * @route GET /api/users/profile
+ */
+export const getUserProfile = async (request: Request, response: Response) => {
+  const user = await UserModel.findById(request.user?.id);
+  if (!user) {
+    response.status(404);
+    throw new Error("User not found");
+  }
+
+  response.json({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
+  });
+};
