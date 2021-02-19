@@ -17,7 +17,7 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
 
   if (email && password) {
     const user = await UserModel.findOne({ email });
-    if (user && user.matchPassword(password)) {
+    if (user && (await user.matchPassword(password))) {
       const token = generate({ id: user.id });
 
       response.json({
