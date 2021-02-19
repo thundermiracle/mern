@@ -1,0 +1,10 @@
+[
+  {
+    "method": "POST",
+    "url": "/api/users/login"
+  },
+  {
+    "method": "POST",
+    "url": "/api/users"
+  }
+]

@@ -10,6 +10,7 @@ interface ILoginUser {
 /**
  * @description User login
  * @route GET /api/users/login
+ * @access public
  */
 export const authUser = async (request: Request<{}, {}, ILoginUser>, response: Response) => {
   const { email, password } = request.body;
@@ -54,4 +55,43 @@ export const getUserProfile = async (request: Request, response: Response) => {
     email: user.email,
     isAdmin: user.isAdmin,
   });
+};
+
+interface IRegisterUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
+/**
+ * @description Register User
+ * @route POST /api/users
+ */
+export const registerUser = async (request: Request<{}, {}, IRegisterUser>, response: Response) => {
+  const { name, email, password } = request.body;
+
+  const existedUser = await UserModel.findOne({ email });
+  if (existedUser) {
+    response.status(400);
+    throw new Error("User already exists");
+  }
+
+  const user = await UserModel.create({
+    name,
+    email,
+    password,
+  });
+
+  if (user) {
+    response.status(201).json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generate({ id: user.id }),
+    });
+  } else {
+    response.status(404);
+    throw new Error("User not found");
+  }
 };
