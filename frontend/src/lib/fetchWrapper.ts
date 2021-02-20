@@ -7,15 +7,29 @@ interface ResponseJson {
 }
 
 interface IFetchWrapper {
-  get<T>(url: string): Promise<T | undefined>;
+  get<T>(url: string, init?: RequestInit): Promise<T | undefined>;
+  post<T>(url: string, init: RequestInit): Promise<T | undefined>;
 }
 
 class FetchWrapper implements IFetchWrapper {
+  private DEFAULT_POST_INIT = {
+    method: "POST",
+  };
+
   async get<T>(url: string, init?: RequestInit): Promise<T | undefined> {
     const res = await fetch(url, init);
 
     const { success, data, message, stack } = (await res.json()) as ResponseJson;
     if (!success) throw new Error(stack || message);
+
+    return data;
+  }
+
+  async post<T>(url: string, init: RequestInit): Promise<T | undefined> {
+    const res = await fetch(url, { ...this.DEFAULT_POST_INIT, ...init });
+
+    const { success, data, message, stack } = (await res.json()) as ResponseJson;
+    if (!success) throw new Error(message || stack);
 
     return data;
   }

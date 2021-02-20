@@ -1,5 +1,4 @@
 import fetchWrapper from "../lib/fetchWrapper";
-import { Product } from "../store/product/types";
 import { ProductData } from "../types";
 interface IProductService {
   get(id: string): Promise<ProductData | undefined>;

@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { productListReducer, singleProductReducer } from "./product/reducers";
 import { cartReducer } from "./cart/reducers";
+import { userLoginReducer } from "./user/reducers";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
   singleProduct: singleProductReducer,
   cart: cartReducer,
+  userLogin: userLoginReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -16,6 +18,7 @@ const initialState = {
   cart: {
     cartItems: JSON.parse(localStorage.getItem("cartItems") || "[]"),
   },
+  userLogin: JSON.parse(localStorage.getItem("userLogin") || "{}"),
 };
 
 const middlewares = [thunk];
@@ -29,6 +32,7 @@ const store = createStore(
 // persist cartItems to localStorage
 store.subscribe(() => {
   localStorage.setItem("cartItems", JSON.stringify(store.getState().cart.cartItems));
+  localStorage.setItem("userLogin", JSON.stringify(store.getState().userLogin));
 });
 
 export default store;
