@@ -19,7 +19,6 @@ const LoginView = ({ history, match }: LoginViewProps) => {
   });
   const dispatch = useDispatch();
   const { loading, error, user } = useSelector((state: RootState) => state.userLogin);
-
   const handleFormChange = React.useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setLoginInfo({

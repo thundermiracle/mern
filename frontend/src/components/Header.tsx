@@ -4,8 +4,18 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import { RootState } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../store/user/actions";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { loading, user } = useSelector((state: RootState) => state.userLogin);
+
+  React.useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
   return (
     <header>
       <Container>
@@ -22,12 +32,15 @@ const Header = () => {
                   Cart
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <FontAwesomeIcon icon={faUser} />
-                  Sign In
-                </Nav.Link>
-              </LinkContainer>
+              {!loading && !user && (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <FontAwesomeIcon icon={faUser} />
+                    Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
+              {!loading && user && <div>Sign out</div>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

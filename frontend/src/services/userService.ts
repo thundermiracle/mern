@@ -2,6 +2,7 @@ import fetchWrapper from "../lib/fetchWrapper";
 import { UserData } from "../types";
 interface IUserService {
   login(email: string, password: string): Promise<UserData | undefined>;
+  getProfile(): Promise<UserData | undefined>;
 }
 
 class UserService implements IUserService {
@@ -13,6 +14,12 @@ class UserService implements IUserService {
         "Content-Type": "application/json",
       },
     });
+
+    return data;
+  }
+
+  async getProfile(): Promise<UserData | undefined> {
+    const data = await fetchWrapper.get<UserData>(`/api/users/profile`);
 
     return data;
   }

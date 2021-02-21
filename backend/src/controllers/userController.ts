@@ -50,10 +50,13 @@ export const getUserProfile = async (request: Request, response: Response) => {
   }
 
   response.json({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    isAdmin: user.isAdmin,
+    success: true,
+    data: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    },
   });
 };
 
@@ -84,11 +87,13 @@ export const registerUser = async (request: Request<{}, {}, IRegisterUser>, resp
 
   if (user) {
     response.status(201).json({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      // token: generate({ id: user.id }),
+      success: true,
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
     });
   } else {
     response.status(404);
