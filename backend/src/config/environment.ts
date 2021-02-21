@@ -3,5 +3,5 @@ export default {
   PORT: process.env.PORT || 5000,
   MONGO_URI: process.env.MONGO_URI || "",
   JWT_SECRET: process.env.JWT_SECRET,
-  JWT_EXPIREDIN: process.env.JWT_EXPIREDIN || "30d",
+  JWT_EXPIREDIN: process.env.JWT_EXPIREDIN || "1d",
 };

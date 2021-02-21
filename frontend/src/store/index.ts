@@ -18,7 +18,6 @@ const initialState = {
   cart: {
     cartItems: JSON.parse(localStorage.getItem("cartItems") || "[]"),
   },
-  userLogin: JSON.parse(localStorage.getItem("userLogin") || "{}"),
 };
 
 const middlewares = [thunk];
@@ -32,7 +31,6 @@ const store = createStore(
 // persist cartItems to localStorage
 store.subscribe(() => {
   localStorage.setItem("cartItems", JSON.stringify(store.getState().cart.cartItems));
-  localStorage.setItem("userLogin", JSON.stringify(store.getState().userLogin));
 });
 
 export default store;

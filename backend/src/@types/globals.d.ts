@@ -13,11 +13,12 @@ declare namespace NodeJS {
 declare namespace Express {
   interface LoggedInUser {
     id: string;
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
     isAdmin?: boolean;
   }
   interface Request {
     user?: LoggedInUser;
+    userId?: string;
   }
 }

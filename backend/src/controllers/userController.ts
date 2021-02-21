@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { generate } from "../lib/tokenUtils";
+import { setTokenToCookie } from "../lib/tokenUtils";
 import UserModel from "../models/UserModel";
 
 interface ILoginUser {
@@ -18,7 +18,8 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
   if (email && password) {
     const user = await UserModel.findOne({ email });
     if (user && (await user.matchPassword(password))) {
-      const token = generate({ id: user.id });
+      // set jwt to cookie to persist login status
+      setTokenToCookie(user.id, response);
 
       response.json({
         success: true,
@@ -27,7 +28,6 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
-          token,
         },
       });
       return;
@@ -43,7 +43,7 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
  * @route GET /api/users/profile
  */
 export const getUserProfile = async (request: Request, response: Response) => {
-  const user = await UserModel.findById(request.user?.id);
+  const user = await UserModel.findById(request.userId);
   if (!user) {
     response.status(404);
     throw new Error("User not found");
@@ -88,7 +88,7 @@ export const registerUser = async (request: Request<{}, {}, IRegisterUser>, resp
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generate({ id: user.id }),
+      // token: generate({ id: user.id }),
     });
   } else {
     response.status(404);
