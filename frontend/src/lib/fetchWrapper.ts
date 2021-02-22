@@ -8,7 +8,8 @@ interface ResponseJson {
 
 interface IFetchWrapper {
   get<T>(url: string, init?: RequestInit): Promise<T | undefined>;
-  post<T>(url: string, init: RequestInit): Promise<T | undefined>;
+  post<T>(url: string, init?: RequestInit): Promise<T | undefined>;
+  post(url: string, init?: RequestInit): Promise<boolean>;
 }
 
 class FetchWrapper implements IFetchWrapper {
@@ -25,7 +26,7 @@ class FetchWrapper implements IFetchWrapper {
     return data;
   }
 
-  async post<T>(url: string, init: RequestInit): Promise<T | undefined> {
+  async post<T>(url: string, init: RequestInit = {}): Promise<T | undefined> {
     const res = await fetch(url, { ...this.DEFAULT_POST_INIT, ...init });
 
     const { success, data, message, stack } = (await res.json()) as ResponseJson;

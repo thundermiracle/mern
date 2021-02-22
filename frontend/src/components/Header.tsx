@@ -1,12 +1,12 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "../store/user/actions";
+import { getUserProfile, userLogout } from "../store/user/actions";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,10 @@ const Header = () => {
 
   React.useEffect(() => {
     dispatch(getUserProfile());
+  }, [dispatch]);
+
+  const handleLogout = React.useCallback(() => {
+    dispatch(userLogout());
   }, [dispatch]);
 
   return (
@@ -40,7 +44,14 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              {!loading && user && <div>Sign out</div>}
+              {!loading && user && (
+                <NavDropdown title={user.name} id="userName">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

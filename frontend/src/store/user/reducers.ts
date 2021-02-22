@@ -7,6 +7,8 @@ import {
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
   USER_PROFILE_FAIL,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_FINISHED,
 } from "./types";
 
 const initUserState: UserState = {
@@ -32,6 +34,13 @@ export const userLoginReducer = (state = initUserState, action: UserActionTypes)
 
     case USER_PROFILE_FAIL:
       return { loading: false, error: action.payload };
+
+    case USER_LOGOUT_REQUEST:
+      return { loading: true };
+
+    case USER_LOGOUT_FINISHED:
+      return { loading: false, user: action.payload };
+
     default:
       return state;
   }

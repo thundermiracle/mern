@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { setTokenToCookie } from "../lib/tokenUtils";
+import { deleteTokenFromCookie, setTokenToCookie } from "../lib/tokenUtils";
 import UserModel from "../models/UserModel";
 
 interface ILoginUser {
@@ -9,10 +9,10 @@ interface ILoginUser {
 
 /**
  * @description User login
- * @route GET /api/users/login
+ * @route POST /api/users/login
  * @access public
  */
-export const authUser = async (request: Request<{}, {}, ILoginUser>, response: Response) => {
+export const userLogin = async (request: Request<{}, {}, ILoginUser>, response: Response) => {
   const { email, password } = request.body;
 
   if (email && password) {
@@ -36,6 +36,21 @@ export const authUser = async (request: Request<{}, {}, ILoginUser>, response: R
 
   response.status(401);
   throw new Error("Not Authorized");
+};
+
+/**
+ * @description User logout
+ * @route POST /api/users/logout
+ * @access public
+ */
+export const userLogout = async (request: Request, response: Response) => {
+  // delete token from cookie
+  deleteTokenFromCookie(response);
+
+  response.json({
+    success: true,
+    data: true,
+  });
 };
 
 /**

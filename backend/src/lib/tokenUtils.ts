@@ -61,3 +61,11 @@ export function setTokenToCookie(id: string, response: Response) {
     maxAge: 1000 * 60 * 60 * 24, // 1 day cookie
   });
 }
+
+/**
+ * clear cookie's "token"
+ * @param response
+ */
+export function deleteTokenFromCookie(response: Response) {
+  response.clearCookie("token");
+}

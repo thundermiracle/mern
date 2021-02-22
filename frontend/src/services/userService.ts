@@ -3,6 +3,7 @@ import { UserData } from "../types";
 interface IUserService {
   login(email: string, password: string): Promise<UserData | undefined>;
   getProfile(): Promise<UserData | undefined>;
+  logout(): Promise<boolean | undefined>;
 }
 
 class UserService implements IUserService {
@@ -22,6 +23,10 @@ class UserService implements IUserService {
     const data = await fetchWrapper.get<UserData>(`/api/users/profile`);
 
     return data;
+  }
+
+  async logout(): Promise<boolean | undefined> {
+    return await fetchWrapper.post(`/api/users/logout`);
   }
 }
 

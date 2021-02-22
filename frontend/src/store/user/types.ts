@@ -19,6 +19,8 @@ export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const USER_PROFILE_REQUEST = "USER_PROFILE_REQUEST";
 export const USER_PROFILE_SUCCESS = "USER_PROFILE_SUCCESS";
 export const USER_PROFILE_FAIL = "USER_PROFILE_FAIL";
+export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
+export const USER_LOGOUT_FINISHED = "USER_LOGOUT_FINISHED";
 interface UserLoginRequestAction {
   type: typeof USER_LOGIN_REQUEST;
 }
@@ -41,11 +43,20 @@ interface UserProfileFailAction {
   type: typeof USER_PROFILE_FAIL;
   payload: string;
 }
+interface UserLogoutRequestAction {
+  type: typeof USER_LOGOUT_REQUEST;
+}
+interface UserLogoutFinishedAction {
+  type: typeof USER_LOGOUT_FINISHED;
+  payload: undefined;
+}
 export type UserActionTypes =
   | UserLoginRequestAction
   | UserLoginSuccessAction
   | UserLoginFailAction
   | UserProfileRequestAction
   | UserProfileSuccessAction
-  | UserProfileFailAction;
+  | UserProfileFailAction
+  | UserLogoutRequestAction
+  | UserLogoutFinishedAction;
 /***************** end of Action part *****************/
