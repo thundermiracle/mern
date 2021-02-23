@@ -101,6 +101,9 @@ export const registerUser = async (request: Request<{}, {}, IRegisterUser>, resp
   });
 
   if (user) {
+    // set jwt to cookie to persist login status
+    setTokenToCookie(user.id, response);
+
     response.status(201).json({
       success: true,
       data: {

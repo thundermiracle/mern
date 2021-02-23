@@ -8,8 +8,10 @@ import {
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
   USER_PROFILE_FAIL,
-  USER_LOGOUT_REQUEST,
-  USER_LOGOUT_FINISHED,
+  USER_LOGOUT,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
 } from "./types";
 
 export const userLogin = (email: string, password: string): AppThunk => async (
@@ -34,16 +36,30 @@ export const getUserProfile = (): AppThunk => async (dispatch: Dispatch<Action>)
 
     dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: USER_PROFILE_FAIL, payload: error.message });
+    // do not pass error message if get profile failed
+    dispatch({ type: USER_PROFILE_FAIL });
+    // dispatch({ type: USER_PROFILE_FAIL, payload: error.message });
   }
 };
 
 export const userLogout = (): AppThunk => async (dispatch: Dispatch<Action>) => {
   try {
-    dispatch({ type: USER_LOGOUT_REQUEST });
-
     await userService.logout();
   } finally {
-    dispatch({ type: USER_LOGOUT_FINISHED });
+    dispatch({ type: USER_LOGOUT });
+  }
+};
+
+export const userRegister = (name: string, email: string, password: string): AppThunk => async (
+  dispatch: Dispatch<Action>,
+) => {
+  try {
+    dispatch({ type: USER_REGISTER_REQUEST });
+
+    const data = await userService.register(name, email, password);
+
+    dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: USER_REGISTER_FAIL, payload: error.message });
   }
 };

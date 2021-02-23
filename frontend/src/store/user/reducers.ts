@@ -7,8 +7,10 @@ import {
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
   USER_PROFILE_FAIL,
-  USER_LOGOUT_REQUEST,
-  USER_LOGOUT_FINISHED,
+  USER_LOGOUT,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
 } from "./types";
 
 const initUserState: UserState = {
@@ -18,28 +20,22 @@ const initUserState: UserState = {
 export const userLoginReducer = (state = initUserState, action: UserActionTypes) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
+    case USER_PROFILE_REQUEST:
+    case USER_REGISTER_REQUEST:
       return { loading: true };
 
     case USER_LOGIN_SUCCESS:
+    case USER_PROFILE_SUCCESS:
+    case USER_REGISTER_SUCCESS:
       return { loading: false, user: action.payload };
 
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
-
-    case USER_PROFILE_REQUEST:
-      return { loading: true };
-
-    case USER_PROFILE_SUCCESS:
-      return { loading: false, user: action.payload };
-
     case USER_PROFILE_FAIL:
+    case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
 
-    case USER_LOGOUT_REQUEST:
-      return { loading: true };
-
-    case USER_LOGOUT_FINISHED:
-      return { loading: false, user: action.payload };
+    case USER_LOGOUT:
+      return {};
 
     default:
       return state;

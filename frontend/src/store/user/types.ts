@@ -19,8 +19,10 @@ export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const USER_PROFILE_REQUEST = "USER_PROFILE_REQUEST";
 export const USER_PROFILE_SUCCESS = "USER_PROFILE_SUCCESS";
 export const USER_PROFILE_FAIL = "USER_PROFILE_FAIL";
-export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
-export const USER_LOGOUT_FINISHED = "USER_LOGOUT_FINISHED";
+export const USER_LOGOUT = "USER_LOGOUT";
+export const USER_REGISTER_REQUEST = "USER_REGISTER_REQUEST";
+export const USER_REGISTER_SUCCESS = "USER_REGISTER_SUCCESS";
+export const USER_REGISTER_FAIL = "USER_REGISTER_FAIL";
 interface UserLoginRequestAction {
   type: typeof USER_LOGIN_REQUEST;
 }
@@ -43,12 +45,19 @@ interface UserProfileFailAction {
   type: typeof USER_PROFILE_FAIL;
   payload: string;
 }
-interface UserLogoutRequestAction {
-  type: typeof USER_LOGOUT_REQUEST;
+interface UserLogoutAction {
+  type: typeof USER_LOGOUT;
 }
-interface UserLogoutFinishedAction {
-  type: typeof USER_LOGOUT_FINISHED;
-  payload: undefined;
+interface UserRegisterRequestAction {
+  type: typeof USER_REGISTER_REQUEST;
+}
+interface UserRegisterSuccessAction {
+  type: typeof USER_REGISTER_SUCCESS;
+  payload: User;
+}
+interface UserRegisterFailAction {
+  type: typeof USER_REGISTER_FAIL;
+  payload: string;
 }
 export type UserActionTypes =
   | UserLoginRequestAction
@@ -57,6 +66,8 @@ export type UserActionTypes =
   | UserProfileRequestAction
   | UserProfileSuccessAction
   | UserProfileFailAction
-  | UserLogoutRequestAction
-  | UserLogoutFinishedAction;
+  | UserLogoutAction
+  | UserRegisterRequestAction
+  | UserRegisterSuccessAction
+  | UserRegisterFailAction;
 /***************** end of Action part *****************/
