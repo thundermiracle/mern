@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Col, Row } from "react-bootstrap";
+import queryString from "query-string";
 
 import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
@@ -9,10 +10,8 @@ import { userRegister } from "../store/user/actions";
 import { RootState } from "../store";
 import Loader from "../components/Loader";
 
-interface RegisterViewProps extends RouteComponentProps<{ redirect?: string }> {}
-
-const RegisterView = ({ match, history }: RegisterViewProps) => {
-  const { params } = match;
+const RegisterView = ({ location, history }: RouteComponentProps) => {
+  const { redirect } = queryString.parse(location.search) as { redirect?: string };
   const [registerInfo, setRegisterInfo] = React.useState({
     name: "",
     email: "",
@@ -41,9 +40,9 @@ const RegisterView = ({ match, history }: RegisterViewProps) => {
 
   React.useEffect(() => {
     if (user) {
-      history.push(params.redirect || "/");
+      history.push(redirect || "/");
     }
-  }, [history, user, params.redirect]);
+  }, [history, user, redirect]);
 
   const handleRegister = React.useCallback(
     (e: FormEvent) => {
@@ -117,9 +116,7 @@ const RegisterView = ({ match, history }: RegisterViewProps) => {
           <Row className="py-3">
             <Col>
               Have an Account?{" "}
-              <Link to={params.redirect ? `/login?redirect=${params.redirect}` : "/login"}>
-                Login
-              </Link>
+              <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>Login</Link>
             </Col>
           </Row>
         </Form>

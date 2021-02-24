@@ -23,6 +23,9 @@ export const USER_LOGOUT = "USER_LOGOUT";
 export const USER_REGISTER_REQUEST = "USER_REGISTER_REQUEST";
 export const USER_REGISTER_SUCCESS = "USER_REGISTER_SUCCESS";
 export const USER_REGISTER_FAIL = "USER_REGISTER_FAIL";
+export const USER_PROFILE_UPD_REQUEST = "USER_PROFILE_UPD_REQUEST";
+export const USER_PROFILE_UPD_SUCCESS = "USER_PROFILE_UPD_SUCCESS";
+export const USER_PROFILE_UPD_FAIL = "USER_PROFILE_UPD_FAIL";
 interface UserLoginRequestAction {
   type: typeof USER_LOGIN_REQUEST;
 }
@@ -59,6 +62,17 @@ interface UserRegisterFailAction {
   type: typeof USER_REGISTER_FAIL;
   payload: string;
 }
+interface UserProfileUpdRequestAction {
+  type: typeof USER_PROFILE_UPD_REQUEST;
+}
+interface UserProfileUpdSuccessAction {
+  type: typeof USER_PROFILE_UPD_SUCCESS;
+  payload: User;
+}
+interface UserProfileUpdFailAction {
+  type: typeof USER_PROFILE_UPD_FAIL;
+  payload: string;
+}
 export type UserActionTypes =
   | UserLoginRequestAction
   | UserLoginSuccessAction
@@ -69,5 +83,8 @@ export type UserActionTypes =
   | UserLogoutAction
   | UserRegisterRequestAction
   | UserRegisterSuccessAction
-  | UserRegisterFailAction;
+  | UserRegisterFailAction
+  | UserProfileUpdRequestAction
+  | UserProfileUpdSuccessAction
+  | UserProfileUpdFailAction;
 /***************** end of Action part *****************/

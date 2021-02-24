@@ -11,6 +11,7 @@ import ProductView from "./views/ProductView";
 import CartView from "./views/CartView";
 import LoginView from "./views/LoginView";
 import RegisterView from "./views/RegisterView";
+import ProfileView from "./views/ProfileView";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/cart/:id?" component={CartView} />
           <Route path="/login" component={LoginView} />
           <Route path="/register" component={RegisterView} />
+          <Route path="/profile" component={ProfileView} />
         </Container>
       </main>
       <Footer />

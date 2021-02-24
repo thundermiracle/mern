@@ -12,6 +12,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_PROFILE_UPD_REQUEST,
+  USER_PROFILE_UPD_SUCCESS,
+  USER_PROFILE_UPD_FAIL,
 } from "./types";
 
 export const userLogin = (email: string, password: string): AppThunk => async (
@@ -61,5 +64,19 @@ export const userRegister = (name: string, email: string, password: string): App
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: USER_REGISTER_FAIL, payload: error.message });
+  }
+};
+
+export const updUserProfile = (name: string, email: string, password?: string): AppThunk => async (
+  dispatch: Dispatch<Action>,
+) => {
+  try {
+    dispatch({ type: USER_PROFILE_UPD_REQUEST });
+
+    const data = await userService.updProfile(name, email, password);
+
+    dispatch({ type: USER_PROFILE_UPD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: USER_PROFILE_UPD_FAIL, payload: error.message });
   }
 };

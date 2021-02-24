@@ -11,6 +11,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_PROFILE_UPD_REQUEST,
+  USER_PROFILE_UPD_SUCCESS,
+  USER_PROFILE_UPD_FAIL,
 } from "./types";
 
 const initUserState: UserState = {
@@ -22,16 +25,19 @@ export const userLoginReducer = (state = initUserState, action: UserActionTypes)
     case USER_LOGIN_REQUEST:
     case USER_PROFILE_REQUEST:
     case USER_REGISTER_REQUEST:
+    case USER_PROFILE_UPD_REQUEST:
       return { loading: true };
 
     case USER_LOGIN_SUCCESS:
     case USER_PROFILE_SUCCESS:
     case USER_REGISTER_SUCCESS:
+    case USER_PROFILE_UPD_SUCCESS:
       return { loading: false, user: action.payload };
 
     case USER_LOGIN_FAIL:
     case USER_PROFILE_FAIL:
     case USER_REGISTER_FAIL:
+    case USER_PROFILE_UPD_FAIL:
       return { loading: false, error: action.payload };
 
     case USER_LOGOUT:

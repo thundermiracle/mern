@@ -7,8 +7,11 @@ import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile, userLogout } from "../store/user/actions";
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const { loading, user } = useSelector((state: RootState) => state.userLogin);
 
@@ -18,7 +21,8 @@ const Header = () => {
 
   const handleLogout = React.useCallback(() => {
     dispatch(userLogout());
-  }, [dispatch]);
+    history.push("/");
+  }, [dispatch, history]);
 
   return (
     <header>

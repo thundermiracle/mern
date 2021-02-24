@@ -41,6 +41,18 @@ class UserService implements IUserService {
 
     return data;
   }
+
+  async updProfile(name: string, email: string, password?: string): Promise<UserData | undefined> {
+    const data = await fetchWrapper.put<UserData>(`/api/users/profile`, {
+      body: JSON.stringify({ name, email, password }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    return data;
+  }
 }
 
 const userService = new UserService();

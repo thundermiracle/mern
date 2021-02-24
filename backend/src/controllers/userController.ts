@@ -7,6 +7,18 @@ interface ILoginUser {
   password?: string;
 }
 
+interface IRegisterUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface IUpdateUser {
+  name: string;
+  email: string;
+  password?: string;
+}
+
 /**
  * @description User login
  * @route POST /api/users/login
@@ -75,11 +87,36 @@ export const getUserProfile = async (request: Request, response: Response) => {
   });
 };
 
-interface IRegisterUser {
-  name: string;
-  email: string;
-  password: string;
-}
+/**
+ * @description Update User Profile
+ * @route PUT /api/users/profile
+ */
+export const updUserProfile = async (request: Request<{}, {}, IUpdateUser>, response: Response) => {
+  const user = await UserModel.findById(request.userId);
+  if (!user) {
+    response.status(404);
+    throw new Error("User not found");
+  }
+
+  // apply
+  user.name = request.body.name || user.name;
+  user.email = request.body.email || user.email;
+  if (request.body.password) {
+    user.password = request.body.password;
+  }
+
+  await user.save();
+
+  response.json({
+    success: true,
+    data: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    },
+  });
+};
 
 /**
  * @description Register User
