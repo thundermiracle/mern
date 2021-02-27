@@ -35,7 +35,9 @@ const CartView = ({ history }: CartViewProps) => {
     [dispatch],
   );
 
-  const handleCheckout = React.useCallback(() => {}, []);
+  const handleCheckout = React.useCallback(() => {
+    history.push("/login?redirect=shipping");
+  }, [history]);
 
   return (
     <Row className="align-items-end">

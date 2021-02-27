@@ -12,6 +12,7 @@ import CartView from "./views/CartView";
 import LoginView from "./views/LoginView";
 import RegisterView from "./views/RegisterView";
 import ProfileView from "./views/ProfileView";
+import ShippingView from "./views/ShippingView";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" component={LoginView} />
           <Route path="/register" component={RegisterView} />
           <Route path="/profile" component={ProfileView} />
+          <Route path="/shipping" component={ShippingView} />
         </Container>
       </main>
       <Footer />
