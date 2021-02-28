@@ -8,6 +8,7 @@ import FormContainer from "../components/FormContainer";
 import { RootState } from "../store";
 import Loader from "../components/Loader";
 import { addShippingAddress } from "../store/shipping/actions";
+import CheckoutSteps from "../components/CheckoutSteps";
 
 const ShippingView = ({ history }: RouteComponentProps) => {
   const { shippingAddress } = useSelector((state: RootState) => state.shipping);
@@ -61,6 +62,7 @@ const ShippingView = ({ history }: RouteComponentProps) => {
 
   return (
     <FormContainer>
+      <CheckoutSteps stepCount={2} />
       <h1>Shipping</h1>
       {errorMessage && <Message variant="danger">{errorMessage}</Message>}
       <Form onSubmit={handleSubmit}>
