@@ -21,7 +21,7 @@ const StepsInfos = [
   },
   {
     text: "Place Order",
-    link: "/order",
+    link: "/placeorder",
   },
 ];
 
