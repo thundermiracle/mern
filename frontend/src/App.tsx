@@ -14,6 +14,7 @@ import RegisterView from "./views/RegisterView";
 import ProfileView from "./views/ProfileView";
 import ShippingView from "./views/ShippingView";
 import PaymentView from "./views/PaymentView";
+import PlaceOrderView from "./views/PlaceOrderView";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/profile" component={ProfileView} />
           <Route path="/shipping" component={ShippingView} />
           <Route path="/payment" component={PaymentView} />
+          <Route path="/placeorder" component={PlaceOrderView} />
         </Container>
       </main>
       <Footer />
