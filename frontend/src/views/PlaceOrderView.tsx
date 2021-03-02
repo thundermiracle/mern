@@ -1,11 +1,12 @@
 import React from "react";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import { RootState } from "../store";
 import { CartItem } from "../store/cart/types";
+import { createOrder } from "../store/order/actions";
 
 const addDecimals = (num: number) => {
   return (Math.round(num * 100) / 100).toFixed(2);
@@ -33,9 +34,16 @@ const PlaceOrderView = ({ history }: RouteComponentProps) => {
     cart: { cartItems },
     shipping: { shippingAddress },
     payment: { paymentMethod },
+    orderCreate: { order, error, success },
   } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
 
-  const handlePlaceOrder = React.useCallback(() => {}, []);
+  React.useEffect(() => {
+    if (success) {
+      history.push(`/order/${order?._id}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, history]);
 
   if (!cartItems) {
     history.push("/");
@@ -49,6 +57,25 @@ const PlaceOrderView = ({ history }: RouteComponentProps) => {
   }
 
   const { itemsPrice, shippingPrice, taxPrice, totalPrice } = calculatePrices(cartItems);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const handlePlaceOrder = React.useCallback(() => {
+    const orderItems = cartItems.map((item) => ({
+      ...item,
+      productId: item._id,
+    }));
+
+    dispatch(
+      createOrder({
+        orderItems,
+        paymentMethod,
+        shippingAddress,
+        shippingPrice: Number(shippingPrice),
+        taxPrice: Number(taxPrice),
+        totalPrice: Number(totalPrice),
+      }),
+    );
+  }, [cartItems, dispatch, paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice]);
 
   return (
     <>
@@ -124,6 +151,9 @@ const PlaceOrderView = ({ history }: RouteComponentProps) => {
                   <Col>Total</Col>
                   <Col>${totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button

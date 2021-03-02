@@ -5,8 +5,11 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import "express-async-errors";
 import env from "./config/environment";
+
 import productsRouter from "./routes/productsRoutes";
 import usersRouter from "./routes/usersRoutes";
+import orderRouter from "./routes/ordersRoute";
+
 import ErrorHandler from "./handlers/ErrorHandler";
 import AuthHandler from "./handlers/AuthHandler";
 
@@ -22,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.all("*", AuthHandler);
 app.use("/api/products", productsRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/orders", orderRouter);
 app.use(ErrorHandler);
 
 app.listen(port, () => console.log(`[${nodeEnv}] Server running on ${port}`.green));

@@ -18,7 +18,7 @@ declare namespace Express {
     isAdmin?: boolean;
   }
   interface Request {
-    user?: LoggedInUser;
+    // user?: LoggedInUser;
     userId?: string;
   }
 }
